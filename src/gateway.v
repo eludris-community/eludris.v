@@ -41,14 +41,14 @@ pub fn (mut c GatewayClient) on_message(listener fn (Message) !) {
 }
 
 // handle_message handles a message from the gateway.
-fn (c &GatewayClient) handle_message(_ websocket.Client, message &websocket.Message) ! {
+fn (c &GatewayClient) handle_message(mut _ websocket.Client, message &websocket.Message) ! {
 	data := message.payload.bytestr()
 
 	match json.decode(Payload, data)!.op {
 		'PONG' {}
 		'MESSAGE_CREATE' {
 			event := json.decode(MessagePayload, data)!
-			spawn c.on_message_listener(event.d)!
+			spawn c.on_message_listener(event.d)
 		}
 		else {}
 	}

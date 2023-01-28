@@ -18,7 +18,7 @@ pub fn new_instance(p InstanceParams) !&Instance {
 		return error('instance info request failed')
 	}
 
-	return json.decode(Instance, response.body)!
+	return &json.decode(Instance, response.body)!
 }
 
 // Instance is a struct that contains information about an instance.
