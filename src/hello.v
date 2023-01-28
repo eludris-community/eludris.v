@@ -1,5 +1,5 @@
 module eludris
 
 pub fn hello() string {
-	return "Hello!"
+	return 'Hello!'
 }
