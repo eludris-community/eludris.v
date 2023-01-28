@@ -28,7 +28,46 @@ git clone https://github.com/eludris-community/eludris.v ~/.vmodules/rgbcube/elu
 
 Here are some examples to get you started:
 
-TODO
+### Ping Pong Bot
+
+```v
+import rgbcube.eludris
+
+mut client := eludris.new_client("Goof")
+
+client.on_message(fn [client] (message eludris.Message) ! {
+    if message.content.to_lower().starts_with("!ping")
+        client.send_message("Pong!")!
+    }
+})
+
+client.run()!
+```
+
+### Gateway Client
+
+```v
+import rgbcube.eludris
+
+gateway := eludris.new_gateway_client(eludris.new_instance())
+
+gateway.on_message(fn [gateway] (message eludris.Message) ! {
+    println("Received message from '${message.author}': ${message.content}")
+    println("Selling message to the CCP...")
+})
+
+gateway.run()!
+```
+
+### REST Client
+
+```v
+import rgbcube.eludris
+
+rest := eludris.new_rest_client('Goof', eludris.new_instance())
+
+rest.send_message("Sent from my toaster which runs an executable every time i toast!")!
+```
 
 ## License
 
