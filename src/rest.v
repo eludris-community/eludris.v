@@ -2,7 +2,7 @@ module eludris
 
 import net.http
 
-// new_rest_client creates a new rest client.
+// new_rest_client creates a new rest client with the given default username and instance.
 
 pub fn new_rest_client(username string, instance &Instance) &RestClient {
 	return &RestClient{
@@ -11,17 +11,18 @@ pub fn new_rest_client(username string, instance &Instance) &RestClient {
 	}
 }
 
-// RestClient is the main struct which is used to communicate with the REST API.
+// RestClient is the main struct which is used to communicate with the Eludris REST API.
 [noinit]
 pub struct RestClient {
 	pub:
-	username string
+	username string // The default username.
 	instance &Instance // The instance to send messages to.
 }
 
 // SendMessageParams is a struct that contains the parameters for the send_message function.
+[params]
 pub struct SendMessageParams {
-	author ?string // Overridable author name, defaults to the client's name.
+	author ?string // Overridable author name, defaults to the clients name.
 }
 
 // send_message sends a message to the instance.

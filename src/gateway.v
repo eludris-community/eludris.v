@@ -24,13 +24,13 @@ pub fn new_gateway_client(instance &Instance) &GatewayClient {
 	return GatewayClient{instance}
 }
 
-// GatewayClient is a client for the Eludris gateway.
+// GatewayClient is a WebSocket client for the Eludris gateway.
 [noinit]
 pub struct GatewayClient {
 	mut:
-	on_message_listener fn (message &Message) = fn (_ &Message) {} // The message listener for the client.
+	on_message_listener fn (message &Message) = fn (_ &Message) {} // The message listener.
 	pub:
-	instance &Instance // The instance this client is connected to.
+	instance &Instance // The instance the client will connected to.
 }
 
 // on_message sets the message listener for the gateway client.
@@ -52,7 +52,6 @@ fn (c &GatewayClient) handle_message(message &websocket.Message) {
 }
 
 // ping_gateway pings the gateway every 30 seconds.
-
 fn ping_gateway(mut ws websocket.Client) {
 	for {
 		ws.write_string(eludris.ping_payload)!

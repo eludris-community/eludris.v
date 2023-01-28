@@ -1,6 +1,6 @@
 module eludris
 
-// new_client creates a new client with the given username and instance parameters.
+// new_client creates a new client with the given username and instance.
 
 pub fn new_client(username string, p InstanceParams) !&Client {
 	instance := new_instance(p)!

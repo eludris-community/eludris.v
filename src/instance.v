@@ -4,6 +4,7 @@ import net.http
 import json
 
 // InstanceParams is a struct that contains the parameters for creating a new instance.
+[params]
 pub struct InstanceParams {
 	api_url string = 'https://eludris.tooty.xyz'
 }
