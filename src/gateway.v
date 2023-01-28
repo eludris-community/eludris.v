@@ -4,6 +4,9 @@ import net.websocket
 import json
 import time
 
+// MessageListenerFn is the type of a message listener.
+pub type MessageListenerFn = fn (Message) !
+
 const (
 	ping_payload = json.encode(Payload{'PING'}) // Const to avoid encoding on every ping.
 )
@@ -30,7 +33,7 @@ pub fn new_gateway_client(instance &Instance) &GatewayClient {
 [heap; noinit]
 pub struct GatewayClient {
 mut:
-	on_message_listener ?fn (Message) !
+	on_message_listener ?MessageListenerFn
 pub mut:
 	// Small hack: instance2 is used instead of instance because instance is used by Client.
 	instance2 &Instance // The instance the client will connected to.
