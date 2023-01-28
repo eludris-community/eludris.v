@@ -4,7 +4,6 @@ import net.http
 import json
 
 // new_rest_client creates a new rest client with the given default username and instance.
-
 pub fn new_rest_client(username string, instance &Instance) &RestClient {
 	return &RestClient{
 		username: username
@@ -13,7 +12,7 @@ pub fn new_rest_client(username string, instance &Instance) &RestClient {
 }
 
 // RestClient is the main struct which is used to communicate with the Eludris REST API.
-[noinit]
+[heap; noinit]
 pub struct RestClient {
 pub:
 	username string    // The default username.

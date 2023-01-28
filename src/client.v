@@ -5,8 +5,8 @@ module eludris
 pub fn new_client(username string, p InstanceParams) !&Client {
 	instance := new_instance(p)!
 	return &Client{
-		GatewayClient: new_gateway_client(instance)
-		RestClient: new_rest_client(username, instance)
+		username: username
+		instance: instance
 	}
 }
 
