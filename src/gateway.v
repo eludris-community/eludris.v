@@ -46,7 +46,6 @@ fn (c &GatewayClient) handle_message(mut _ websocket.Client, message &websocket.
 	data := message.payload.bytestr()
 
 	match json.decode(Payload, data)!.op {
-		'PONG' {}
 		'MESSAGE_CREATE' {
 			msg := json.decode(MessagePayload, data)!.d
 			spawn c.on_message_listener(msg)
@@ -57,7 +56,7 @@ fn (c &GatewayClient) handle_message(mut _ websocket.Client, message &websocket.
 
 // ping_gateway pings the gateway every 30 seconds.
 fn ping_gateway(mut wsc websocket.Client) ! {
-	spawn fn () ! {
+	spawn fn [mut wsc] () ! {
 		for {
 			wsc.write_string(eludris.ping_payload)!
 			time.sleep(30 * time.second)
