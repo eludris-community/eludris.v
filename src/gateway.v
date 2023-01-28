@@ -44,8 +44,8 @@ pub fn (mut c GatewayClient) on_message(listener fn (Message) !) {
 // handle_message handles a message from the gateway.
 fn (c &GatewayClient) handle_message(mut _ websocket.Client, message &websocket.Message) ! {
 	data := message.payload.bytestr()
-
-	match json.decode(Payload, data)!.op {
+	op := json.decode(Payload, data)!.op
+	match op {
 		'MESSAGE_CREATE' {
 			msg := json.decode(MessagePayload, data)!.d
 			spawn c.on_message_listener(msg)
