@@ -21,7 +21,9 @@ struct MessagePayload {
 // new_gateway_client creates a new gateway client with the given instance.
 
 pub fn new_gateway_client(instance &Instance) &GatewayClient {
-	return GatewayClient{instance}
+	return &GatewayClient{
+		instance: instance
+	}
 }
 
 // GatewayClient is a WebSocket client for the Eludris gateway.
@@ -39,7 +41,7 @@ pub fn (mut c GatewayClient) on_message(listener fn (message &Message)) {
 }
 
 // handle_message handles a message from the gateway.
-fn (c &GatewayClient) handle_message(message &websocket.Message) {
+fn (c &GatewayClient) handle_message(_ websocket.Client, message &websocket.Message) ! {
 	data := message.payload.bytestr()
 
 	match json.decode(Payload, data)!.op {
@@ -52,9 +54,9 @@ fn (c &GatewayClient) handle_message(message &websocket.Message) {
 }
 
 // ping_gateway pings the gateway every 30 seconds.
-fn ping_gateway(mut ws websocket.Client) {
+fn ping_gateway(mut wsc websocket.Client) ! {
 	for {
-		ws.write_string(eludris.ping_payload)!
+		wsc.write_string(eludris.ping_payload)!
 		time.sleep(30 * time.second)
 	}
 }
@@ -63,8 +65,8 @@ fn ping_gateway(mut ws websocket.Client) {
 pub fn (c &GatewayClient) run() ! {
 	mut ws := websocket.new_client(c.instance.gateway_url)!
 
-	ws.on_open_ref(ping_gateway)
-	ws.on_message_ref(c.handle_message)
+	ws.on_open(ping_gateway)
+	ws.on_message(c.handle_message)
 
 	ws.connect()!
 	ws.listen()!

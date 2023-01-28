@@ -1,6 +1,7 @@
 module eludris
 
 import net.http
+import json
 
 // new_rest_client creates a new rest client with the given default username and instance.
 
@@ -28,8 +29,8 @@ pub struct SendMessageParams {
 // send_message sends a message to the instance.
 pub fn (c &RestClient) send_message(content string, p SendMessageParams) ! {
 	message := Message{
-		author: p.author or { c.name }
+		author: p.author or { c.username }
 		content: content
 	}
-	http.post(c.instance.api_url, message)!
+	http.post(c.instance.api_url, json.encode(message))!
 }

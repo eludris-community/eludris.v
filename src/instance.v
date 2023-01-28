@@ -22,7 +22,7 @@ pub fn new_instance(p InstanceParams) !&Instance {
 }
 
 // Instance is a struct that contains information about an instance.
-[noinit]
+[heap; noinit]
 pub struct Instance {
 	api_url     string [json: 'oprish_url']
 	gateway_url string [json: 'pandemonium_url']
