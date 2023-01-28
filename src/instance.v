@@ -14,10 +14,6 @@ pub struct InstanceParams {
 pub fn new_instance(p InstanceParams) !&Instance {
 	response := http.get(p.api_url)!
 
-	if response.status_code > 299 || response.status_code < 200 {
-		return error('instance info request failed')
-	}
-
 	instance := json.decode(Instance, response.body)!
 	return &instance
 }

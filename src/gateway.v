@@ -32,7 +32,7 @@ pub struct GatewayClient {
 mut:
 	on_message_listener ?fn (Message) !
 pub mut:
-	instance &Instance // The instance the client will connected to.
+	instance2 &Instance // The instance the client will connected to.
 }
 
 // on_message sets the message listener for the gateway client.
@@ -47,8 +47,8 @@ fn (c &GatewayClient) handle_message(mut _ websocket.Client, message &websocket.
 	match json.decode(Payload, data)!.op {
 		'PONG' {}
 		'MESSAGE_CREATE' {
-			event := json.decode(MessagePayload, data)!
-			spawn c.on_message_listener(event.d)
+			msg := json.decode(MessagePayload, data)!.d
+			spawn c.on_message_listener(msg)
 		}
 		else {}
 	}
@@ -56,10 +56,12 @@ fn (c &GatewayClient) handle_message(mut _ websocket.Client, message &websocket.
 
 // ping_gateway pings the gateway every 30 seconds.
 fn ping_gateway(mut wsc websocket.Client) ! {
-	for {
-		wsc.write_string(eludris.ping_payload)!
-		time.sleep(30 * time.second)
-	}
+	spawn fn () ! {
+		for {
+			wsc.write_string(eludris.ping_payload)!
+			time.sleep(30 * time.second)
+		}
+	}()
 }
 
 // run starts the gateway client. This will block until the client is closed.

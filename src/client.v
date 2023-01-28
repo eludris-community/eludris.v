@@ -5,13 +5,11 @@ module eludris
 pub fn new_client(username string, p InstanceParams) !&Client {
 	instance := new_instance(p)!
 
-	mut client := &Client{}
-
-	client.GatewayClient.instance = instance
-	client.RestClient.instance = instance
-	client.RestClient.username = username
-
-	return client
+	return &Client{
+		username: username
+		instance: instance
+		instance2: instance
+	}
 }
 
 // Client is the client that is a combination of the gateway client and rest client.
