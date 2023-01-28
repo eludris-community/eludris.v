@@ -2,7 +2,7 @@
 
 <h1>eludris.v</h1>
 
-[Docs](https://rgbcube.github.io/docs/eludris) | [Examples](https://github.com/RGBCube/eludris.v/tree/master/examples)
+[Docs](https://rgbcube.github.io/docs/eludris) | [Examples](https://github.com/eludris-community/eludris.v/tree/master/examples)
 
 The V wrapper for Eludris.
 
