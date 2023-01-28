@@ -49,7 +49,7 @@ client.run()!
 ```v
 import rgbcube.eludris
 
-gateway := eludris.new_gateway_client(eludris.new_instance())
+mut gateway := eludris.new_gateway_client(eludris.new_instance()!)
 
 gateway.on_message(fn [gateway] (message eludris.Message) ! {
     println("Received message from '${message.author}': ${message.content}")
@@ -64,7 +64,7 @@ gateway.run()!
 ```v
 import rgbcube.eludris
 
-rest := eludris.new_rest_client('Goof', eludris.new_instance())
+rest := eludris.new_rest_client('Goof', eludris.new_instance()!)
 
 rest.send_message("Sent from my toaster which runs an executable every time i toast!")!
 ```
