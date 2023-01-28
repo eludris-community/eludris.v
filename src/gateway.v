@@ -22,7 +22,7 @@ struct MessagePayload {
 
 pub fn new_gateway_client(instance &Instance) &GatewayClient {
 	return &GatewayClient{
-		instance: instance
+		instance2: instance
 	}
 }
 
@@ -32,6 +32,7 @@ pub struct GatewayClient {
 mut:
 	on_message_listener ?fn (Message) !
 pub mut:
+	// Small hack: instance2 is used instead of instance because instance is used by Client.
 	instance2 &Instance // The instance the client will connected to.
 }
 
@@ -66,7 +67,7 @@ fn ping_gateway(mut wsc websocket.Client) ! {
 
 // run starts the gateway client. This will block until the client is closed.
 pub fn (c &GatewayClient) run() ! {
-	mut ws := websocket.new_client(c.instance.gateway_url)!
+	mut ws := websocket.new_client(c.instance2.gateway_url)!
 
 	ws.on_open(ping_gateway)
 	ws.on_message(c.handle_message)
