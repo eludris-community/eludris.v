@@ -27,9 +27,9 @@ pub fn new_gateway_client(instance &Instance) &GatewayClient {
 // GatewayClient is a WebSocket client for the Eludris gateway.
 [noinit]
 pub struct GatewayClient {
-	mut:
+mut:
 	on_message_listener fn (message &Message) = fn (_ &Message) {} // The message listener.
-	pub:
+pub:
 	instance &Instance // The instance the client will connected to.
 }
 

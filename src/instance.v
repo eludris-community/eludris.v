@@ -27,7 +27,7 @@ pub struct Instance {
 	api_url     string [json: 'oprish_url']
 	gateway_url string [json: 'pandemonium_url']
 	cdn_url     string [json: 'effis_url']
-	pub:
+pub:
 	name               string [json: 'instance_name']
 	description        string
 	version            string

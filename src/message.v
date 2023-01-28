@@ -3,7 +3,7 @@ module eludris
 // Message is a struct that contains message data.
 [noinit]
 pub struct Message {
-	pub:
+pub:
 	author  string
 	content string
 }
