@@ -14,7 +14,7 @@ pub fn new_rest_client(username string, instance &Instance) &RestClient {
 // RestClient is the main struct which is used to communicate with the Eludris REST API.
 [heap; noinit]
 pub struct RestClient {
-pub:
+pub mut:
 	username string    // The default username.
 	instance &Instance // The instance to send messages to.
 }

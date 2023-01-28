@@ -31,7 +31,7 @@ pub fn new_gateway_client(instance &Instance) &GatewayClient {
 pub struct GatewayClient {
 mut:
 	on_message_listener ?fn (Message) !
-pub:
+pub mut:
 	instance &Instance // The instance the client will connected to.
 }
 
