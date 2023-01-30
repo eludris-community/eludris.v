@@ -40,7 +40,7 @@ pub mut:
 }
 
 // on_message sets the message listener for the gateway client.
-pub fn (mut c GatewayClient) on_message(listener fn (Message) !) {
+	pub fn (mut c GatewayClient) on_message(listener MessageListenerFn) {
 	c.on_message_listener = listener
 }
 
